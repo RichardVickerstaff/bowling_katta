@@ -1,8 +1,6 @@
 require 'bowling'
 
 describe Game do
-  #describe "#roll"do
-  #end
   describe "#score" do
     it "scores 0 for a guter game" do
       20.times { subject.roll 0 }
