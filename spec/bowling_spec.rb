@@ -20,5 +20,18 @@ describe Game do
       17.times { subject.roll 0 }
       expect(subject.score).to eq 16
     end
+
+    it "A strike in the first frame followed by three and then four pins, followed by all misses, scores 24." do
+      subject.roll 10
+      subject.roll 3
+      subject.roll 4
+      16.times { subject.roll 0 }
+      expect(subject.score).to eq 24
+    end
+
+    it "A perfect game scores 300" do
+      12.times { subject.roll 10 }
+      expect(subject.score).to eq 300
+    end
   end
 end
