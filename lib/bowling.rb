@@ -10,10 +10,16 @@ class Game
   def score
     @frames = []
 
-    (0..19).reject(&:even?).each do |x|
-      @frames << [@score[x-1], @score[x]]
+    (0..19).reject(&:odd?).each do |x|
+      @frames << {first: @score[x], second: @score[x+1], spare: (@score[x] + @score [x+1] == 10)}
     end
-    @frames.map{|frame| {first: frame[0], second: frame[1], spare: (frame.inject(:+) == 10)} }
-    @frames.each{|frame| frame[:first] + frame[:second]}
+    score = @frames.each_with_index.map do |frame, i|
+      if frame[:spare]
+        frame[:first] + frame[:second] + @frames[i+1][:first]
+      else
+        frame[:first] + frame[:second]
+      end
+    end
+    score.inject(:+)
   end
 end
